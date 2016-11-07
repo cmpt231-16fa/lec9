@@ -103,9 +103,20 @@
 
 ---
 ## ActSel: greedy choice
++ Which **choice** of \`a\_k\` leaves as **much** as possible of the
+  shared resource available for the other activities?
+  + The one which **finishes** the earliest
+  + Since input is **sorted** by finish time, just take the **first** activity
++ Let \`S\_i = {a\_k in S: f\_i <= s\_k}\`: those that **start** after \`a\_i\` finishes
++ **Simplified** recurrence: to find optimal subset of \`S\_i\`,
+  + Choose the **first** activity in \`S\_i\`: call it \`a\_j\`
+  + Recurse on the **remainder**: \`S\_j\`
+  + Don't need to **iterate** over all choices of \`a\_k in S\_i\`
++ We need to **prove** this greedy choice is **optimal**
 
 ---
 ## ActSel: prove greedy
+
 
 ---
 ## ActSel: recursive greedy
