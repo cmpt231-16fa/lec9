@@ -67,6 +67,12 @@
 ## Outline
 
 ---
+## List Merging
+
+---
+## Outline
+
+---
 ## Knapsack problem
 
 ---
