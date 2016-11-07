@@ -7,6 +7,14 @@
 
 ---
 ## Outline for today
++ Greedy algorithms
++ Activity selection
+  + Optimal substructure
+  + Greedy property
+  + Greedy solution
++ Knapsack problem
+  + 0-1 knapsack
++ Huffman coding
 
 ---
 ## Greedy algorithms
