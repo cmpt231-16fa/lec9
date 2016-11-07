@@ -23,11 +23,14 @@
   + At each **decision** point, choose **immediate** gains
 + Relies on **greedy choice** property:
   + **Locally** optimal choices &rArr; **global** optimum
-+ Not all problems have greedy choice property:
-  + **Hybrid** strategies use large **jumps** to get to right "hill",
-  + Then use greedy **hill-climbing** to get to the top
++ **Not** all problems have greedy choice property
 
+<div class="imgbox"><div><ul>
+<li> <strong>Hybrid</strong> strategies use large <em>jumps</em> to get to right "hill"</li>
+<li> Then use greedy <strong>hill-climbing</strong> to get to the top <li>
+</ul></div><div>
 ![Saddle point between maxima, [Wikimedia](https://commons.wikimedia.org/wiki/File%3ASaddle_Point_between_maxima.svg)](static/img/Saddle_Point_between_maxima.svg)
+</div></div>
 
 ---
 ## Problem-solving outline
@@ -43,6 +46,7 @@
 
 ---
 ## Example: activity selection
+
 
 ---
 ## ActSel: optimal substructure
