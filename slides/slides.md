@@ -46,16 +46,57 @@
 
 ---
 ## Example: activity selection
++ **Activities** \`S = {a\_i}\_1^n\` each need **exclusive** use of shared resource
+  + Each activity has **start**/finish times \`[s\_i, f\_i)\` <!-- ] -->
+  + Input is **sorted** by finish time
++ Find **largest** subset of S with **non-overlapping** activities
 
+|  i |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
+|----|----|----|----|----|----|----|----|----|----|
+|  s |  1 |  2 |  4 |  1 |  5 |  8 |  9 | 11 | 13 |
+|  f |  3 |  5 |  7 |  8 |  9 | 10 | 11 | 14 | 16 |
+
+![Activity selection](static/img/activity_selection.png)
 
 ---
-## ActSel: optimal substructure
+## ActSel: task substructure
++ Let \`S\_(ij) = {a\_k in S: f\_i <= s\_k < f\_k <= s\_j}\`:
+  **start** after \`f\_i\` and **finish** before \`s\_j\`
++ Any activity in \`S\_(ij)\` will be **compatible** with:
+  + Any activity that **finishes** no later than \`f\_i\`
+  + Any activity that **starts** no earlier than \`s\_j\`
++ Let \`A\_(ij)\` be a **solution** for \`S\_(ij)\`:
+  largest mutually-compatible subset of \`S\_(ij)\`
++ Choose an activity \`a\_k in A\_(ij)\` and **partition** \`A\_(ij)\` into
+  + \`A\_(ik) = A\_(ij) nn S\_(ik)\`: those that finish **before** \`a\_k\` starts
+  + \`A\_(kj) = A\_(ij) nn S\_(kj)\`: those that start **after** \`a\_k\` finishes
 
 ---
 ## ActSel: prove opt substr
++ **Claim**: \`A\_(ik) and A\_(jk)\` are **optimal** solutions for \`S\_(ik), S\_(kj)\`
++ **Proof** (for \`A\_(ik)\`): assume **not**:
+  + Let \`A\_(ik)'\` be a **better** solution:
+    has non-overlapping elts, and \`|A\_(ik)'| > |A\_(ik)|\`
+  + Then \`A\_(ik)' uu {a\_k} uu A\_(kj)\` would be a solution for \`S\_(ij)\`
+  + Its size is **larger** than \`A\_(ij) = A\_(ik) uu {a\_k} uu A\_(kj)\`
+  + This **contradicts** the assumption that \`A\_(ij)\` was **optimal**
++ Hence our optimal **substructure** is:
+  + **Split** on \`a\_k\`,
+  + **Recurse** twice on \`S\_(ik)\` and \`S\_(kj)\`
+  + **Iterate** over all such choices of \`a\_k\` and choose the **best** split
 
 ---
 ## ActSel: naive recursive
++ Let *c(i, j)* be the **size** of an optimal solution for \`S\_(ij)\`:
+  + **Splitting** on \`a\_k\` yields *c(i, j)* = *c(i, k)* + 1 + *c(k, j)*
+  + Which **choice** of \`a\_k\` is the best?  Try **all** of them
++ **Recurrence**:
+  \` c(i,j) = { (0, if S\_(ij) = O/),
+  (max\_(a\_k in S\_(ij)) (c(i,k) + 1 + c(k,j)), else) :}
++ **Dynamic programming** implementation:
+  + Fill in 2D **table** for *c(i, j)*, bottom-up
+  + Auxiliary table to store **solutions** \`A\_(ij)\`
++ But for this problem, we can do even **better**!
 
 ---
 ## Outline
