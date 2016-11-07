@@ -75,6 +75,12 @@
 ## Outline
 
 ---
+## List Merging
+
+---
+## Outline
+
+---
 ## Knapsack problem
 
 ---
@@ -91,6 +97,15 @@
 
 ---
 ## Huffman coding
+
+---
+## Outline
+
+---
+## Optimal caching
+
+---
+## Farthest-in-future
 
 ---
 ## Outline
