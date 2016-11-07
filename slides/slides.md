@@ -12,6 +12,7 @@
   + Optimal substructure
   + Greedy property
   + Greedy solution
++ List merging
 + Knapsack problem
   + 0-1 knapsack
 + Huffman coding
@@ -25,6 +26,8 @@
 + Not all problems have greedy choice property:
   + **Hybrid** strategies use large **jumps** to get to right "hill",
   + Then use greedy **hill-climbing** to get to the top
+
+![Saddle point between maxima, [Wikimedia](https://commons.wikimedia.org/wiki/File%3ASaddle_Point_between_maxima.svg)](static/img/Saddle_Point_between_maxima.svg)
 
 ---
 ## Problem-solving outline
