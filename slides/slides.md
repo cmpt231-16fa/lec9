@@ -373,10 +373,53 @@ def huffman( chars ):
 ## Outline
 
 ---
-## Optimal caching
+## Caching
++ Cache has **capacity** to store *k* items
++ Input is a sequence of *m* **item requests** \`{d\_i}\_1^m\`
++ Cache **hit** if item already in cache when requested
++ If cache **miss**, need to **evict** an item from cache
+  + Then bring requested item into cache
++ **Task**: eviction schedule to **minimise** evictions
++ E.g., k=*2*, intial cache = `ab`, requests: `a b c b c a b`
+  + **Optimal** schedule has only 2 evictions:
+
+|  reqst |   a   |   b   |   c   |   b   |   c   |   a   |   b   |
+|--------|-------|-------|-------|-------|-------|-------|-------|
+| cache1 |   a   |   a   | **c** |   c   |   c   | **a** |   a   |
+| cache2 |   b   |   b   |   b   |   b   |   b   |   b   |   b   |
+
+<div class="caption">
+This section thanks to Kevin Wayne, for the textbook Kleinberg + Tardos, "Algorithm Design"
+</div>
+
+---
+## Offline caching
++ **Offline** caching: entire request sequence known in advance
++ Various **greedy** algorithms:
++ **LIFO** / **FIFO**: evict *most* (*least*) recently added item
++ **LRU**: evict item whose most *recent* access is the earliest
++ **LFU**: evict item least *frequently* accessed
+
+|  reqst |   a   |   d   |   a   |   b   |   c   |   e   |   g   |
+|--------|-------|-------|-------|-------|-------|-------|-------|
+| cache1 | **a** |   a   |   a   |   a   |   a   |   a   |   ?   |
+| cache2 |   w   |   w   |   w   | **b** |   b   |   b   |   ?   |
+| cache3 |   x   |   x   |   x   |   x   | **c** |   c   |   ?   |
+| cache4 |   y   | **d** |   d   |   d   |   d   |   d   |   ?   |
+| cache5 |   z   |   z   |   z   |   z   |   z   | **e** |   ?   |
+
+**Which** to evict on cache miss for *g*?
 
 ---
 ## Farthest-in-future
++ Since this is **offline**, we can **peek** into the future
++ **Farthest-in-future** algorithm ("clairvoyant"):
+  + Evict item whose *next* request is the **farthest** in the future
++ Can be **proven** (Bélády 1966) to be an **optimal** offline caching strategy
+  + Proof is also a *cut-and-paste* greedy proof
++ Useful perspective to enable **online** algorithms
+  + **LRU** is farthest-in-future with time run *backwards*!
+  + **LIFO** can be arbitrarily *bad*
 
 ---
 ## Outline
