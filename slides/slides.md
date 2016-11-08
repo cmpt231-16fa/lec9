@@ -132,11 +132,30 @@
   + Let \`a\_j\` have **earliest** finish time in \`S\_i\`
     + This would be the *greedy* choice
   + Let \`a\_k\` have **earliest** finish time in \`A\_i\`
+    + This is the choice in the given **optimal** solution
   + **Swap** them: let \`B\_i = A\_i - {a\_k} uu {a\_j}\`
-+ Show the modified solution is just as **optimal**
++ Show the modified solution \`B\_i\` is just as **optimal**:
+  + **Size** \`|B\_i|\` is same as \`|A\_i|\`
+  + Activities are **non-overlapping**: \`f\_j <= f\_k\`
 
 ---
 ## ActSel: recursive greedy
++ **Input**: arrays `s[], f[]`, sorted by `f[]`
+  + Add a **dummy** entry `f[0]=0` so that \`S\_0 = S\`
++ For each **subproblem** \`S\_i\`:
+  + **Skip** over any activities that overlap with \`a\_i\`
+  + Choose the **first** activity \`a\_j\` that *doesn't* overlap
++ **Complexity**?
+
+```
+def ActivitySelection( s, f, i, n ):
+  for j in i+1 .. n:
+    if ( s[ j ] >= f[ i ] ):
+      return { a_j } + ActivitySelection( s, f, j, n )
+  return NULL
+
+ActivitySelection( s, f, 0, length(f) )
+```
 
 ---
 ## ActSel: iterative greedy
@@ -205,7 +224,7 @@
   + **Greedy** strategy would put these two at *maximal depth*
 + **Swap** *u* with \`l\_1\`, and *v* with \`l\_1\`; call the modified tree *T'*
 + How does this affect the **total merge cost**?
-  + cost(*T'*) - cost(*T*) = 
+  + cost(*T'*) - cost(*T*) =
     \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\` <= 0
     + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
     and \`d\_(max) >= max(d\_1, d\_2)\`
