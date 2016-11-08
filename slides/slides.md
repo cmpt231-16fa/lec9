@@ -28,15 +28,14 @@ in **holy conduct** and **godliness**, <br/>
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
 ## Outline for today
 + Greedy algorithms
-+ Activity selection
++ Activity selection problem
   + Optimal substructure
-  + Greedy property
+  + Proving greedy property
   + Greedy solution
-+ List merging
-+ Knapsack problem
-  + 0-1 knapsack
-+ Optimal caching
++ List merging problem + proof
++ Knapsack problem: fractional and 0-1
 + Huffman coding
++ Optimal offline caching
 
 ---
 ## Greedy algorithms
@@ -64,6 +63,9 @@ in **holy conduct** and **godliness**, <br/>
   + Need to **prove** greedy choice yields *global* optimum
 + Convert to **recursive** greedy solution
 + Convert to **iterative** (bottom-up) greedy solution
+
+---
+## Outline
 
 ---
 ## Example: activity selection
