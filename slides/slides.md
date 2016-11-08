@@ -383,10 +383,12 @@ def ActivitySelection( s, f ):
 + Build tree **bottom-up**:
   + Start with the two **least**-common characters
   + **Merge** them to make a new *subtree* with **combined** freq
-+ Use **min-priority queue** to manage the greedy choice
 
 <div class="imgbox"><div style="flex:2">
-Sounds <strong>familiar</strong>?
+<ul>
+<li>Sounds <strong>familiar</strong>?</li>
+<li>Use <strong>min-priority queue</strong> to manage the greedy choice</li>
+</ul>
 <pre><code data-trim>
 def huffman( chars ):
   Q = new MinQueue( chars )
@@ -398,11 +400,6 @@ def huffman( chars ):
     Q.push( z )
   return Q.popmin()
 </code></pre>
-<table><tbody><tr><th>char</th>
-<th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th>
-</tr><tr><th>freq</th>
-<td>15</td><td> 5</td><td> 9</td><td> 7</td><td>18</td><td>10</td>
-</tr></tbody></table>
 </div><div>
 ![List merge / Huffman](static/img/HuffmanCodeAlg.png)
 </div></div>
