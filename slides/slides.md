@@ -275,12 +275,13 @@ def ActivitySelection( s, f ):
   <ul><li>and <em>creates</em> a new list of length `l_i+l_j`</li></ul></li>
 <li> <strong>Applications</strong>:
   merge <em>sort</em> (<em>k</em>-way merge), sorting <em>big data</em></li>
-<li> e.g., <strong>input</strong>: <code>{ 3, 4, 5, 6 }</code></li>
-<li> <strong>schedule</strong>: <code>( 3 + 4 ) + ( 5 + 6 )</code></li>
-<li> merge 3+4: <em>cost</em> 7, <em>lists</em> = <code>{ 5, 6, 7 }</code></li>
-<li> merge 5+6: <em>cost</em> 11, <em>lists</em> = <code>{ 7, 11 }</code></li>
-<li> merge 7+11: <em>cost</em> 18, <em>lists</em> = <code>{ 18 }</code></li>
-<li> <strong>Total cost</strong>: 7+11+18 = <em>36</em></li>
+<li> e.g., <strong>input</strong>: <code>{ 3, 4, 5, 6 }</code><ul>
+  <li> <strong>schedule</strong>: ( 3 + 4 ) + ( 5 + 6 )</li>
+  <li> merge 3+4: <em>cost</em> 7, <em>lists</em> = { 5, 6, 7 }</li>
+  <li> merge 5+6: <em>cost</em> 11, <em>lists</em> = { 7, 11 }</li>
+  <li> merge 7+11: <em>cost</em> 18, <em>lists</em> = { 18 }</li>
+  <li> <strong>Total cost</strong>: 7+11+18 = <em>36</em></li>
+</ul></li>
 </ul></div><div>
 ![List merge / Huffman](static/img/HuffmanCodeAlg.png)
 </div></div>
