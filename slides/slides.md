@@ -167,13 +167,14 @@ in **holy conduct** and **godliness**, <br/>
 + For each **subproblem** \`S\_i\`:
   + **Skip** over any activities that overlap with \`a\_i\`
   + Choose the **first** activity \`a\_j\` that *doesn't* overlap
+  + **Recurse** on the remainder
 + **Complexity**?
 
 ```
 def ActivitySelection( s, f, i ):
   for j in i+1 .. length( f ):
-    if ( s[ j ] >= f[ i ] ):
-      return [ j ] + ActivitySelection( s, f, j )
+    if ( s[ j ] >= f[ i ] ):                        # compat?
+      return [ j ] + ActivitySelection( s, f, j )   # concat
   return NULL
 
 ActivitySelection( s, f, 0 )
@@ -190,8 +191,8 @@ def ActivitySelection( s, f ):
   A = [ 1 ]
   i = 1
   for j in 2 .. length( f ):
-    if ( s[ j ] >= f[ i ] ):
-      A = A + [ j ]
+    if ( s[ j ] >= f[ i ] ):    # compat w/ a_j ?
+      A = A + [ j ]             # append to list
       i = j
   return A
 ```
@@ -203,12 +204,13 @@ def ActivitySelection( s, f ):
 
 ---
 ## Greedy vs dynamic programming
-+ Greedy-solvable problems are a **subset** of dyn-prog-solvable problems
++ *Greedy*-solvable problems are a **subset** <br/>
+  of *dynamic programming*-solvable problems
   + **Not** all problems have *greedy property*
-+ Dynamic programming fills in **table** *bottom-up*
-  + Greedy choice is done *top-down*
-+ **Choice** in dyn prog requires solutions to **all** subproblems
-  + Greedy choice is **simpler**: choose *before* doing subproblem
++ Dynamic programming fills in *table* **bottom-up**
+  + Greedy *choice* is done **top-down**
++ Dyn prog **choice** requires solutions to **all** subproblems
+  + Greedy choice can be made **before** doing the (*single*) subproblem
 + To **prove** greedy property:
   + *Assume* an optimal solution
   + *Modify* it to include the greedy choice
@@ -216,7 +218,7 @@ def ActivitySelection( s, f ):
 
 ---
 ## Optimising for greedy choice
-+ Often, making the *greedy choice* is easier if input is **pre-processed**
++ Often, *greedy choice* is easier if input is **pre-processed**
 + E.g., **sorting** activities by *finish* time
   + Then the greedy **choice** can be made in *O(1)* each time
   + The **pre-sorting** takes *O(n lg n)*
@@ -231,13 +233,17 @@ def ActivitySelection( s, f ):
 ## List merging
 + Given: **lists** of various lengths, \`l\_1 < l\_2 < ... < l\_n\`
   + Want: **sequence** of lists to merge, minimising total *merge cost*
-+ **Merging** two lists \`l\_i, l\_j\` *costs* \`l\_i+l\_j\` and creates a list of len \`l\_i+l\_j\`
++ **Merging** two lists \`l\_i, l\_j\` *costs* \`l\_i+l\_j\`
+  + and *creates* a new list of length \`l\_i+l\_j\`
 + e.g., L = `{ 3, 4, 5, 6 }`:
   + merge schedule `( 3 + 4 ) + ( 5 + 6 )`:
   + merge 3+4: *cost* 7, lists = `{ 5, 6, 7 }`
   + merge 5+6: *cost* 11, lists = `{ 7, 11 }`
   + merge 7+11: *cost* 18, lists = `{ 18 }`
   + **Total cost**: 7+11+18 = *36*
+
+>>>
+TODO: svg figure?
 
 ---
 ## List merge: greedy strategy
@@ -255,7 +261,7 @@ def ActivitySelection( s, f ):
   + Input lists are at **leaves**
     + Keys are **lengths** of lists
   + Keys for **internal** nodes are **sum** of children's keys
-+ Total merge **cost** is sum of lengths of all interior nodes:
++ Total merge **cost** is sum of all interior nodes:
   + \`= sum\_(i=1)^n d\_i l\_i\`, where \`d\_i\` is **depth** of leaf *i* in tree
 + Note: any leaf of **maximal** depth must have a **sibling**
   + Sibling must also be a **leaf**
@@ -263,28 +269,30 @@ def ActivitySelection( s, f ):
 
 ---
 ## List merge: proof outline
-+ **Prove** that greedy strategy gives an optimal solution
++ **Prove** that greedy strategy gives an optimal solution:
   + Use **induction** on number *n* of lists
 + For inductive step, use a **cut-and-paste** style proof:
   + Pick an arbitrary **optimal** (not necessarily greedy) solution
   + **Modify** it to fit the greedy strategy, and
-  + Demonstrate the modified solution is **no worse** than the original solution
-  + For the **remainder**, greedy is optimal (by the **inductive hypothesis**)
+  + Show the modified solution is **no worse** than original solution
+  + Apply **inductive hypothesis** on set of *n-1* lists
   + Thus greedy on *n* lists is **no worse** than the modified solution
   + Which is **no worse** than the original, optimal solution
-+ This demonstrates greedy is **optimal**
++ This will demonstrate that greedy is **optimal**
 
 ---
 ## List merge: proof
 + Let *T* be the tree for **any** optimal solution
-  + Let *u* and *v* be sibling **leaves** of maximal depth, \`d\_(max)\` (wlog, *u* <= *v*)
+  + Let *u* and *v* be sibling **lists** of maximal depth, \`d\_(max)\` (wlog, *u* &le; *v*)
 + Consider two **smallest** lists, \`l\_1, l\_2\`, of depth \`d\_1, d\_2\`
   + **Greedy** strategy would put these two at *maximal depth*
-+ **Swap** *u* with \`l\_1\`, and *v* with \`l\_1\`; call the modified tree *T'*
-+ How does this affect the **total merge cost**?
-  + cost(*T'*) - cost(*T*) =
-    \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\` <= 0
-    + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
++ **Swap** *u* &harr; \`l\_1\`, and *v* &harr; \`l\_1\`: call the modified tree *T'*
+  + *First* merge in *T'* is same as **greedy**
+  + *Remaining* merges in *T'* no better than greedy, by **inductive hyp**
++ How does this affect the **total merge cost**? <br/>
+  cost(*T'*) - cost(*T*) =
+  \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\` &le; 0
+  + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
     and \`d\_(max) >= max(d\_1, d\_2)\`
 + So the greedy *T'* is just as **optimal** as *T*
 
