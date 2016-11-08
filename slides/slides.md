@@ -386,38 +386,37 @@ def huffman( chars ):
 ---
 ## Caching
 + Cache has **capacity** to store *k* items
-+ Input is a sequence of *m* **item requests** \`{d\_i}\_1^m\`
+  + Input is a sequence of *m* **item requests** \`{d\_i}\_1^m\`
 + Cache **hit** if item already in cache when requested
-+ If cache **miss**, need to **evict** an item from cache
-  + Then bring requested item into cache
+  + If cache **miss**, need to **evict** an item from cache
+  + Then bring **requested** item into cache
 + **Task**: eviction schedule to **minimise** evictions
-+ E.g., k=*2*, intial cache = `ab`, requests: `a b c b c a b`
++ E.g., k=*2*, intial cache = *ab*, requests: *a b c b c a b*
   + **Optimal** schedule has only 2 evictions:
 
-|  reqst |   a   |   b   |   c   |   b   |   c   |   a   |   b   |
-|--------|-------|-------|-------|-------|-------|-------|-------|
-| cache1 |   a   |   a   | **c** |   c   |   c   | **a** |   a   |
-| cache2 |   b   |   b   |   b   |   b   |   b   |   b   |   b   |
+| request |   a   |   b   |   c   |   b   |   c   |   a   |   b   |
+|---------|-------|-------|-------|-------|-------|-------|-------|
+|  cache1 |   a   |   a   | **c** |   c   |   c   | **a** |   a   |
+|  cache2 |   b   |   b   |   b   |   b   |   b   |   b   |   b   |
 
 <div class="caption">
-This section thanks to Kevin Wayne, for the textbook Kleinberg + Tardos, "Algorithm Design"
+This section thanks to Kevin Wayne and the textbook by Kleinberg + Tardos, "Algorithm Design"
 </div>
 
 ---
-## Offline caching
-+ **Offline** caching: entire request sequence known in advance
-+ Various **greedy** algorithms:
+## Greedy offline caching
++ Assume entire request sequence is *known* in advance
 + **LIFO** / **FIFO**: evict *most* (*least*) recently added item
 + **LRU**: evict item whose most *recent* access is the earliest
 + **LFU**: evict item least *frequently* accessed
 
-|  reqst |   a   |   d   |   a   |   b   |   c   |   e   |   g   |
-|--------|-------|-------|-------|-------|-------|-------|-------|
-| cache1 | **a** |   a   |   a   |   a   |   a   |   a   |   ?   |
-| cache2 |   w   |   w   |   w   | **b** |   b   |   b   |   ?   |
-| cache3 |   x   |   x   |   x   |   x   | **c** |   c   |   ?   |
-| cache4 |   y   | **d** |   d   |   d   |   d   |   d   |   ?   |
-| cache5 |   z   |   z   |   z   |   z   |   z   | **e** |   ?   |
+| request |   a   |   d   |   a   |   b   |   c   |   e   |   g   |
+|---------|-------|-------|-------|-------|-------|-------|-------|
+|  cache1 | **a** |   a   |   a   |   a   |   a   |   a   |   ?   |
+|  cache2 |   w   |   w   |   w   | **b** |   b   |   b   |   ?   |
+|  cache3 |   x   |   x   |   x   |   x   | **c** |   c   |   ?   |
+|  cache4 |   y   | **d** |   d   |   d   |   d   |   d   |   ?   |
+|  cache5 |   z   |   z   |   z   |   z   |   z   | **e** |   ?   |
 
 **Which** to evict on cache miss for *g*?
 
@@ -426,11 +425,12 @@ This section thanks to Kevin Wayne, for the textbook Kleinberg + Tardos, "Algori
 + Since this is **offline**, we can **peek** into the future
 + **Farthest-in-future** algorithm ("clairvoyant"):
   + Evict item whose *next* request is the **farthest** in the future
-+ Can be **proven** (Bélády 1966) to be an **optimal** offline caching strategy
++ **Provably** optimal offline caching strategy <span class="ref">(Bélády 1966)</span>
   + Proof is also a *cut-and-paste* greedy proof
-+ Useful perspective to enable **online** algorithms
++ Useful perspective to guide us for **online** algorithms
   + **LRU** is farthest-in-future with time run *backwards*!
   + **LIFO** can be arbitrarily *bad*
++ Caching is one of computer science's **hardest** real-world problems
 
 ---
 ## Outline
