@@ -318,9 +318,10 @@ def FractionalKnapsack( v, w, W ):
 
 ---
 ## 0-1 knapsack
-+ Same as fractional knapsack, but **no** fractional items allowed
++ Knapsack problem, but **no** fractional items allowed
 + Greedy strategy **no longer** works!
-  + Early *locally*-optimal choices lock us out of later *globally*-optimal choices
+  + *Locally*-optimal choices made early on <br/>
+    **lock** us out of later *globally*-optimal choices
 + Still can solve with **dynamic programming** *(#16.2-2)*
 
 ![Knapsack problems](static/img/Fig-16-2.svg)
@@ -344,16 +345,15 @@ def FractionalKnapsack( v, w, W ):
 ![Character encodings](static/img/Fig-16-3.svg)
 
 ---
-## Code trees
-+ Every *prefix* codes can be mapped to a binary **code tree**:
-  + **Prefixes** are *nodes*, **characters** are at *leaves*
-+ **Fixed-length** code &rArr; all *leaves* at **same level**
-+ **Decoding** = a *walk* down the tree
-  + **Cost** of a character = its *depth* in the tree
+## Binary code trees
++ **Prefixes** are *nodes*, **characters** are at *leaves*
+  + Requires encoding to be a *prefix* code
++ **Decoding** strings = a series of *walks* down the tree
+  + **Cost** of a character *c* = its *depth* \`d\_c\` in the tree
+  + **Fixed-length** code &rArr; all *leaves* at **same level**
 + **Total cost** of encoding a *text* using a given *tree*:
   \` sum\_c ( f\_c d\_c )\`
   + where \`f\_c\` is the **frequency** of character *c* in the text
-  + and \`d\_c\` is the **depth** of its leaf in the tree
 
 ![Code tree](static/img/Fig-16-4.svg)
 
