@@ -116,7 +116,14 @@
 
 ---
 ## ActSel: prove greedy
-
++ **Cut-and-paste** style proof:
++ Let \`A\_i\` be any **optimal solution** for \`S\_i\`
++ **Modify** \`A\_i\` to fit *greedy* strategy
+  + Let \`a\_j\` have **earliest** finish time in \`S\_i\`
+    + This would be the *greedy* choice
+  + Let \`a\_k\` have **earliest** finish time in \`A\_i\`
+  + **Swap** them: let \`A'\_i = A\_i - {a\_k} uu {a\_j}\`
++ Show the modified solution is just as **optimal**
 
 ---
 ## ActSel: recursive greedy
