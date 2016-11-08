@@ -82,7 +82,8 @@ in **holy conduct** and **godliness**, <br/>
 
 ---
 ## Example: activity selection
-+ **Activities** \`S = {a\_i}\_1^n\` each require *exclusive* use of some shared resource
++ **Activities** \`S = {a\_i}\_1^n\`: <br/>
+  each require *exclusive* use of some shared resource
   + e.g., database *table*, communication *bus*, conference *room*
 + Each activity has **start**/finish times \`[s\_i, f\_i)\` <!-- ] -->
   + Input is **sorted** by finish time
@@ -197,8 +198,8 @@ in **holy conduct** and **godliness**, <br/>
 ```
 def ActivitySelection( s, f, i ):
   for j in i+1 .. length( f ):
-    if ( s[ j ] >= f[ i ] ):                        # compat?
-      return [ j ] + ActivitySelection( s, f, j )   # concat
+    if ( s[ j ] >= f[ i ] ):                        # compatible w/ a_j?
+      return [ j ] + ActivitySelection( s, f, j )   # concatenate lists
   return NULL
 
 ActivitySelection( s, f, 0 )
@@ -215,7 +216,7 @@ def ActivitySelection( s, f ):
   A = [ 1 ]
   i = 1
   for j in 2 .. length( f ):
-    if ( s[ j ] >= f[ i ] ):    # compat w/ a_j ?
+    if ( s[ j ] >= f[ i ] ):    # compatible w/ a_j ?
       A = A + [ j ]             # append to list
       i = j
   return A
@@ -326,8 +327,8 @@ TODO: svg figure?
   + *Remaining* merges in *T'* no better than greedy, by **inductive hyp**
 + How does this affect the **total merge cost**? <br/>
   cost(*T'*) - cost(*T*) =
-  \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\` &le; 0
-  + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
+  \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\`
+  + This is &le; 0, since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
     and \`d\_(max) >= max(d\_1, d\_2)\`
 + So the greedy *T'* is just as **optimal** as *T*
 
@@ -409,7 +410,7 @@ def FractionalKnapsack( v, w, W ):
   + **Cost** of a character *c* = its *depth* \`d\_c\` in the tree
   + **Fixed-length** code &rArr; all *leaves* at **same level**
 + **Total cost** of encoding a *text* using a given *tree*:
-  \` sum\_c ( f\_c d\_c )\`
+  \` sum ( f\_c d\_c )\`
   + where \`f\_c\` is the **frequency** of character *c* in the text
 
 ![Code tree](static/img/Fig-16-4.svg)
@@ -478,15 +479,13 @@ This section thanks to Kevin Wayne and the textbook by Kleinberg + Tardos, "Algo
 + **LRU**: evict item whose most *recent* access is the earliest
 + **LFU**: evict item least *frequently* accessed
 
-| request |   a   |   d   |   a   |   b   |   c   |   e   |   g   |
+| request |   a   |   d   |   a   |   b   |   c   |   e   |  *g*  |
 |---------|-------|-------|-------|-------|-------|-------|-------|
-|  cache1 | **a** |   a   |   a   |   a   |   a   |   a   |   ?   |
-|  cache2 |   w   |   w   |   w   | **b** |   b   |   b   |   ?   |
-|  cache3 |   x   |   x   |   x   |   x   | **c** |   c   |   ?   |
-|  cache4 |   y   | **d** |   d   |   d   |   d   |   d   |   ?   |
-|  cache5 |   z   |   z   |   z   |   z   |   z   | **e** |   ?   |
-
-**Which** to evict on cache miss for *g*?
+|  cache1 | **a** |   a   |   a   |   a   |   a   |   a   |  *?*  |
+|  cache2 |   w   |   w   |   w   | **b** |   b   |   b   |  *?*  |
+|  cache3 |   x   |   x   |   x   |   x   | **c** |   c   |  *?*  |
+|  cache4 |   y   | **d** |   d   |   d   |   d   |   d   |  *?*  |
+|  cache5 |   z   |   z   |   z   |   z   |   z   | **e** |  *?*  |
 
 ---
 ## Farthest-in-future
@@ -498,7 +497,7 @@ This section thanks to Kevin Wayne and the textbook by Kleinberg + Tardos, "Algo
 + Useful perspective to guide us for **online** algorithms
   + **LRU** is farthest-in-future with time run *backwards*!
   + **LIFO** can be arbitrarily *bad*
-+ Caching is one of computer science's **hardest** real-world problems
++ Caching is one of comp sci's **hardest** real-world problems
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
