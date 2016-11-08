@@ -10,7 +10,8 @@ But the **day of the Lord** will come **like a thief**, in which <br/>
 [...] the **earth** and its **works** will be burned up.
 
 Since all these things are to be **destroyed** in this way, <br/>
-**what sort** of people ought you to be <br/>
+**what sort** of people ought you to be
+
 in **holy conduct** and **godliness**, <br/>
 **looking** for and **hastening** the coming of the day of God
 
@@ -27,15 +28,16 @@ in **holy conduct** and **godliness**, <br/>
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
 ## Outline for today
-+ Greedy algorithms
-+ Activity selection problem
-  + Optimal substructure
-  + Proving greedy property
-  + Greedy solution
-+ List merging problem + proof
-+ Knapsack problem: fractional and 0-1
-+ Huffman coding
-+ Optimal offline caching
++ **Greedy** algorithms
++ **Activity selection** problem
+  + Optimal *substructure*
+  + *Proof* of optimality of greedy
+  + Greedy *solution*
++ **List merging** problem
+  + *Proof* of optimality of greedy
++ **Knapsack** problem: *fractional* and *0-1*
++ **Huffman** coding
++ Optimal offline **caching**
 
 ---
 ## Greedy algorithms
@@ -65,7 +67,18 @@ in **holy conduct** and **godliness**, <br/>
 + Convert to **iterative** (bottom-up) greedy solution
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ **Activity selection problem**
+  + **Optimal substructure**
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ Knapsack problem: fractional and 0-1
++ Huffman coding
++ Optimal offline caching
 
 ---
 ## Example: activity selection
@@ -131,7 +144,18 @@ in **holy conduct** and **godliness**, <br/>
 + But for this problem, we can do even **better**!
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + **Proof of optimality of greedy**
+  + **Greedy solution**
++ List merging problem
+  + Proof of optimality of greedy
++ Knapsack problem: fractional and 0-1
++ Huffman coding
++ Optimal offline caching
 
 ---
 ## ActSel: greedy choice
@@ -227,7 +251,18 @@ def ActivitySelection( s, f ):
   + Use **priority queue** to pop the current most optimal choice
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ **List merging problem**
+  + **Proof of optimality of greedy**
++ Knapsack problem: fractional and 0-1
++ Huffman coding
++ Optimal offline caching
 
 ---
 ## List merging
@@ -297,7 +332,18 @@ TODO: svg figure?
 + So the greedy *T'* is just as **optimal** as *T*
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ **Knapsack problem: fractional and 0-1**
++ Huffman coding
++ Optimal offline caching
 
 ---
 ## Knapsack problem
@@ -327,7 +373,18 @@ def FractionalKnapsack( v, w, W ):
 ![Knapsack problems](static/img/Fig-16-2.svg)
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ Knapsack problem: fractional and 0-1
++ **Huffman coding**
++ Optimal offline caching
 
 ---
 ## Encoding
@@ -381,7 +438,18 @@ def huffman( chars ):
 | freq | 15 |  5 |  9 |  7 | 18 | 10 |
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ Knapsack problem: fractional and 0-1
++ Huffman coding
++ **Optimal offline caching**
 
 ---
 ## Caching
@@ -433,7 +501,18 @@ This section thanks to Kevin Wayne and the textbook by Kleinberg + Tardos, "Algo
 + Caching is one of computer science's **hardest** real-world problems
 
 ---
-## Outline
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ **Greedy** algorithms
++ **Activity selection** problem
+  + Optimal *substructure*
+  + *Proof* of optimality of greedy
+  + Greedy *solution*
++ **List merging** problem
+  + *Proof* of optimality of greedy
++ **Knapsack** problem: *fractional* and *0-1*
++ **Huffman** coding
++ Optimal offline **caching**
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" class="empty" -->
