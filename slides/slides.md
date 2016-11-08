@@ -271,7 +271,6 @@ def ActivitySelection( s, f ):
   + Want: **sequence** of lists to merge, minimising total *merge cost*
 + **Merging** two lists \`l\_i, l\_j\` *costs* \`l\_i+l\_j\`
   + and *creates* a new list of length \`l\_i+l\_j\`
-+ **Applications**: merge *sort* (*k*-way merge), *big data* sorting
 
 <div class="imgbox"><div style="flex:2"><ul>
 <li> <strong>Applications</strong>:
