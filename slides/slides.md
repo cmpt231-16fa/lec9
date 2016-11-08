@@ -135,6 +135,27 @@
 
 ---
 ## List Merging
++ Given: **lists** of various lengths, \`L = {l\_1, ..., l\_n}\`
+  + Want: **sequence** of lists to merge, minimising total *merge cost*
+  + **Merging** two lists \`l\_i, l\_j\` costs \`l\_i+l\_j\` and produces a list of length \`l\_i+l\_j\`
++ e.g., L = `{ 3, 4, 5, 6 }`: merge in sequence `( 3 + 4 ) + ( 5 + 6 )`
+  + merge 3+4: *cost* 7, lists = `{ 5, 6, 7 }`
+  + merge 5+6: *cost* 11, lists = `{ 7, 11 }`
+  + merge 7+11: *cost* 18, lists = `{ 18 }`
+  + **Total cost**: 7+11+18 = *36*
++ **Greedy** strategy: always select the two **shortest** lists to merge
+  + Merging creates a **new** list, that is also **pushed** with other lists
+  + **Iterate** on the new set of lists
++ &rArr; what **data structure** to use?
+  + Hold a **set** of keys
+  + Quickly return the **smallest** key
+
+---
+## List Merge: prove greedy
++ Represent the merge **schedule** using binary **tree**:
+  + Input list lengths are at **leaves**
+  + Node's length is **sum** of children's lengths
++ Prove greedy solution is optimal by **induction**:
 
 ---
 ## Outline
