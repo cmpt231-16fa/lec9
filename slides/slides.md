@@ -6,11 +6,12 @@
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
 ## 2 Peter 3:10-12 <span class="ref">(NASB)</span>
-But the **day of the Lord** will come **like a thief**,
-in which [...] the **earth** and its **works** will be burned up.
+But the **day of the Lord** will come **like a thief**, in which <br/>
+[...] the **earth** and its **works** will be burned up.
 
-Since all these things are to be **destroyed** in this way,
-**what sort** of people ought you to be in **holy conduct** and **godliness**,
+Since all these things are to be **destroyed** in this way, <br/>
+**what sort** of people ought you to be <br/>
+in **holy conduct** and **godliness**, <br/>
 **looking** for and **hastening** the coming of the day of God
 
 >>>
