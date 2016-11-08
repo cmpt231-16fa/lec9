@@ -40,10 +40,10 @@ in **holy conduct** and **godliness**, <br/>
 ---
 ## Greedy algorithms
 + A special case of **dynamic programming**
-  + At each **decision** point, choose **immediate** gains
+  + At each *decision* point, choose **immediate** gains
 + Relies on **greedy choice** property:
-  + **Locally** optimal choices &rArr; **global** optimum
-+ **Not** all problems have greedy choice property
+  + *Locally* optimal choices &rArr; *global* optimum
++ **Not** all problems have greedy choice property!
 
 <div class="imgbox"><div><ul>
 <li> <strong>Hybrid</strong> strategies use large <em>jumps</em> to get to right "hill"</li>
@@ -56,10 +56,10 @@ in **holy conduct** and **godliness**, <br/>
 ## Problem-solving outline
 + Describe optimial **substructure** (e.g., via *recurrence*)
 + Convert to naive **recursive** solution
-  + Could then convert to **dynamic programming**
+  + Could then convert to *dynamic programming*
 + Use **greedy choice** to simplify recurrence
-  + So only **one** subproblem remains
-  + Don't have to **iterate** through all subproblems
+  + So only *one* subproblem remains
+  + Don't have to *iterate* through all subproblems
   + Need to **prove** greedy choice yields *global* optimum
 + Convert to **recursive** greedy solution
 + Convert to **iterative** (bottom-up) greedy solution
@@ -69,11 +69,11 @@ in **holy conduct** and **godliness**, <br/>
 
 ---
 ## Example: activity selection
-+ **Activities** \`S = {a\_i}\_1^n\` each require **exclusive** use of some shared resource
-  + e.g., database table, communication bus, conference room
++ **Activities** \`S = {a\_i}\_1^n\` each require *exclusive* use of some shared resource
+  + e.g., database *table*, communication *bus*, conference *room*
 + Each activity has **start**/finish times \`[s\_i, f\_i)\` <!-- ] -->
   + Input is **sorted** by finish time
-+ Task: **maximise** number of activities that can be completed
++ Task: **maximise** num activities that can be completed
   + i.e., find **largest** subset of S with **non-overlapping** activities
 
 |  i |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
@@ -98,7 +98,7 @@ in **holy conduct** and **godliness**, <br/>
   + Any activity that **finishes** no later than \`f\_i\`
   + Any activity that **starts** no earlier than \`s\_j\`
 + Let \`A\_(ij)\` be a **solution** for \`S\_(ij)\`:
-  + i.e., largest mutually-compatible subset of \`S\_(ij)\`
+  + i.e., largest *mutually-compatible* subset of \`S\_(ij)\`
 + Choose an activity \`a\_k in A\_(ij)\` and **partition** \`A\_(ij)\` into
   + \`A\_(ik) = A\_(ij) nn S\_(ik)\`: those that finish **before** \`a\_k\` starts
   + \`A\_(kj) = A\_(ij) nn S\_(kj)\`: those that start **after** \`a\_k\` finishes
@@ -124,7 +124,7 @@ in **holy conduct** and **godliness**, <br/>
   + Which **choice** of \`a\_k\` is the best?  Try **all** of them
 + **Recurrence**:
   \` c(i,j) = { (0, if S\_(ij) = O/),
-  (max\_(a\_k in S\_(ij)) (c(i,k) + 1 + c(k,j)), else) :} \`
+  (max\_(a\_k in S\_(ij)) (c(i,k) + 1 + c(k,j)), if S\_(ij) != O/) :} \`
 + **Dynamic programming** implementation:
   + Fill in 2D **table** for *c(i, j)*, bottom-up
   + Auxiliary table to store **solutions** \`A\_(ij)\`
