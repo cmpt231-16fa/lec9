@@ -148,17 +148,36 @@
 + **Complexity**?
 
 ```
-def ActivitySelection( s, f, i, n ):
-  for j in i+1 .. n:
+def ActivitySelection( s, f, i ):
+  for j in i+1 .. length( f ):
     if ( s[ j ] >= f[ i ] ):
-      return { a_j } + ActivitySelection( s, f, j, n )
+      return [ j ] + ActivitySelection( s, f, j )
   return NULL
 
-ActivitySelection( s, f, 0, length(f) )
+ActivitySelection( s, f, 0 )
 ```
 
 ---
 ## ActSel: iterative greedy
++ Easy to convert **tail-recursion** to **iteration**
++ **Complexity**: &Theta;(*n*)
+  + or &Theta;(*n lg n*) if need to **pre-sort** `f[]`
+
+```
+def ActivitySelection( s, f ):
+  A = [ 1 ]
+  i = 1
+  for j in 2 .. length( f ):
+    if ( s[ j ] >= f[ i ] ):
+      A = A + [ j ]
+      i = j
+  return A
+```
+
+|  i |    1   |    2   |    3   |    4   |    5   |    6   |    7   |    8   |    9   |
+|----|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|  s |    1   |    2   |   *4*  |    1   |    5   |   *8*  |    9   |  *11*  |   13   |
+|  f |  **3** |    5   |  **7** |    8   |    9   | **10** |   11   | **14** |   16   |
 
 ---
 ## Greedy vs dynamic programming
