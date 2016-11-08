@@ -300,12 +300,55 @@ def FractionalKnapsack( v, w, W ):
 
 ---
 ## Encoding
++ Given a **text** with known *character set*
+  + **Encode** each character with a unique *codeword* in binary
++ **Fixed-length** code: all codewords *same* length
+  + "`cafe`" &rArr; *010 000 101 100*
++ **Variable-length** code: some codes use *fewer* bits
+  + "`cafe`" &rArr; *100 0 1100 1101*
+  + **Compression**: more *frequent* chars get *shorter* codes
++ **Prefix** code: no code is a *prefix* of another
+  + Makes **parsing** unique: don't need *delimiters*
+  + "`cafe`" &rArr; *100011001101*
+
+![Character encodings](static/img/Fig-16-3.svg)
 
 ---
 ## Code trees
++ Every *prefix* codes can be mapped to a binary **code tree**:
+  + **Prefixes** are *nodes*, **characters** are at *leaves*
++ **Fixed-length** code &rArr; all *leaves* at **same level**
++ **Decoding** = a *walk* down the tree
+  + **Cost** of a character = its *depth* in the tree
++ **Total cost** of encoding a *text* using a given *tree*:
+  \` sum\_c ( f\_c d\_c )\`
+  + where \`f\_c\` is the **frequency** of character *c* in the text
+  + and \`d\_c\` is the **depth** of its leaf in the tree
+
+![Code tree](static/img/Fig-16-4.svg)
 
 ---
 ## Huffman coding
++ Build tree **bottom-up**:
+  + Start with the two **least**-common characters
+  + **Merge** them to make a new *subtree* with **combined** freq
++ Use **min-priority queue** to manage the greedy choice
+
+```
+def huffman( chars ):
+  Q = new MinQueue( chars )
+  for i in 1 .. length( chars ) - 1:
+    z = new Node()
+    z.left = Q.popmin()
+    z.right = Q.popmin()
+    z.freq = z.left.freq + z.right.freq
+    Q.push( z )
+  return Q.popmin()
+```
+
+| char |  a |  a |  a |  a |  a |  a |
+|------|----|----|----|----|----|----|
+| freq | 15 |  5 |  9 |  7 | 18 | 10 |
 
 ---
 ## Outline
