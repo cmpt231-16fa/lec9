@@ -376,7 +376,7 @@ def huffman( chars ):
   return Q.popmin()
 ```
 
-| char |  a |  a |  a |  a |  a |  a |
+| char |  a |  b |  c |  d |  e |  f |
 |------|----|----|----|----|----|----|
 | freq | 15 |  5 |  9 |  7 | 18 | 10 |
 
