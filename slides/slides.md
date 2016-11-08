@@ -269,10 +269,10 @@ def ActivitySelection( s, f ):
 ## List merging
 + Given: **lists** of various lengths, \`l\_1 < l\_2 < ... < l\_n\`
   + Want: **sequence** of lists to merge, minimising total *merge cost*
-+ **Merging** two lists \`l\_i, l\_j\` *costs* \`l\_i+l\_j\`
-  + and *creates* a new list of length \`l\_i+l\_j\`
 
 <div class="imgbox"><div style="flex:2"><ul>
+<li> <strong>Merging</strong> two lists `l_i, l_j` <em>costs</em> `l_i+l_j`
+  <ul><li>and <em>creates</em> a new list of length `l_i+l_j`</li></ul></li>
 <li> <strong>Applications</strong>:
   merge <em>sort</em> (<em>k</em>-way merge), sorting <em>big data</em></li>
 <li> e.g., <strong>input</strong>: <code>{ 3, 4, 5, 6 }</code></li>
