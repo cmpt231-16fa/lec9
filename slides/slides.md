@@ -271,16 +271,19 @@ def ActivitySelection( s, f ):
   + Want: **sequence** of lists to merge, minimising total *merge cost*
 + **Merging** two lists \`l\_i, l\_j\` *costs* \`l\_i+l\_j\`
   + and *creates* a new list of length \`l\_i+l\_j\`
-+ e.g., L = `{ 3, 4, 5, 6 }`:
-  + merge schedule `( 3 + 4 ) + ( 5 + 6 )`:
-  + merge 3+4: *cost* 7, lists = `{ 5, 6, 7 }`
-  + merge 5+6: *cost* 11, lists = `{ 7, 11 }`
-  + merge 7+11: *cost* 18, lists = `{ 18 }`
-  + **Total cost**: 7+11+18 = *36*
 + **Applications**: merge *sort* (*k*-way merge), *big data* sorting
 
->>>
-TODO: svg figure?
+<div class="imgbox"><div style="flex:2">
+e.g., L = <code>{ 3, 4, 5, 6 }</code>:<ul>
+<li> merge schedule <code>( 3 + 4 ) + ( 5 + 6 )</code>:</li>
+<li> merge 3+4: <em>cost</em> 7, lists = <code>{ 5, 6, 7 }</code></li>
+<li> merge 5+6: <em>cost</em> 11, lists = <code>{ 7, 11 }</code></li>
+<li> merge 7+11: <em>cost</em> 18, lists = <code>{ 18 }</code></li>
+<li> <strong>Total cost</strong>: 7+11+18 = <em>36</em></li>
+</ul>
+</div><div>
+![List merge / Huffman](static/img/HuffmanCodeAlg.png)
+</div></div>
 
 ---
 ## List merge: greedy strategy
@@ -381,8 +384,10 @@ TODO: svg figure?
   + Start with the two **least**-common characters
   + **Merge** them to make a new *subtree* with **combined** freq
 + Use **min-priority queue** to manage the greedy choice
++ Sounds **familiar**?
 
-```
+<div class="imgbox"><div style="flex:2">
+<pre><code data-trim>
 def huffman( chars ):
   Q = new MinQueue( chars )
   for i in 1 .. length( chars ) - 1:
@@ -392,11 +397,15 @@ def huffman( chars ):
     z.freq = z.left.freq + z.right.freq
     Q.push( z )
   return Q.popmin()
-```
-
-| char |  a |  b |  c |  d |  e |  f |
-|------|----|----|----|----|----|----|
-| freq | 15 |  5 |  9 |  7 | 18 | 10 |
+</code></pre>
+<table><tbody><tr><th>char</th>
+<th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th>
+</tr><tr><th>freq</th>
+<td>15</td><td> 5</td><td> 9</td><td> 7</td><td>18</td><td>10</td>
+</tr></tbody></table>
+</div><div>
+![List merge / Huffman](static/img/HuffmanCodeAlg.png)
+</div></div>
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
