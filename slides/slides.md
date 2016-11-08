@@ -181,9 +181,26 @@ def ActivitySelection( s, f ):
 
 ---
 ## Greedy vs dynamic programming
++ Greedy-solvable problems are a **subset** of dyn-prog-solvable problems
+  + **Not** all problems have *greedy property*
++ Dynamic programming fills in **table** *bottom-up*
+  + Greedy choice is done *top-down*
++ **Choice** in dyn prog requires solutions to **all** subproblems
+  + Greedy choice is **simpler**: choose *before* doing subproblem
++ To **prove** greedy property:
+  + *Assume* an optimal solution
+  + *Modify* it to include the greedy choice
+  + *Show* that the modified solution is still optimal
 
 ---
 ## Optimising for greedy choice
++ Often, making the *greedy choice* is easier if input is **pre-processed**
++ E.g., **sorting** activities by *finish* time
+  + Then the greedy **choice** can be made in *O(1)* each time
+  + The **pre-sorting** takes *O(n lg n)*
++ If input is **dynamically** generated:
+  + Can't **sort** whole list in advance, but we can
+  + Use **priority queue** to pop the current most optimal choice
 
 ---
 ## Outline
@@ -254,9 +271,29 @@ def ActivitySelection( s, f ):
 
 ---
 ## Knapsack problem
++ **Fractional** knapsack problem:
+  + *n* items, each with **weight** \`w\_i\` and **value** \`v\_i\`
+  + Maximise total **value**, subject to total **weight** limit *W*
+  + Can take **fractions** of an item (think *liquids*)
++ **Greedy** solution: sort items by *value-to-weight* ratio
+  + Greedy **choice**: take item of largest \`v\_i/w\_i\`
++ **Final** spot may be filled with a *fractional* item
+
+```
+def FractionalKnapsack( v, w, W ):
+  while totWeight < W:
+    add next item of largest value-to-weight
+  replace last item with 1 - (totWeight - W) of itself
+```
 
 ---
 ## 0-1 knapsack
++ Same as fractional knapsack, but **no** fractional items allowed
++ Greedy strategy **no longer** works!
+  + Early *locally*-optimal choices lock us out of later *globally*-optimal choices
++ Still can solve with **dynamic programming** *(#16.2-2)*
+
+![Knapsack problems](static/img/Fig-16-2.svg)
 
 ---
 ## Outline
