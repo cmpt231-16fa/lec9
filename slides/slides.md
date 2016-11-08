@@ -273,15 +273,16 @@ def ActivitySelection( s, f ):
   + and *creates* a new list of length \`l\_i+l\_j\`
 + **Applications**: merge *sort* (*k*-way merge), *big data* sorting
 
-<div class="imgbox"><div style="flex:2">
-e.g., L = <code>{ 3, 4, 5, 6 }</code>:<ul>
-<li> merge schedule <code>( 3 + 4 ) + ( 5 + 6 )</code>:</li>
-<li> merge 3+4: <em>cost</em> 7, lists = <code>{ 5, 6, 7 }</code></li>
-<li> merge 5+6: <em>cost</em> 11, lists = <code>{ 7, 11 }</code></li>
-<li> merge 7+11: <em>cost</em> 18, lists = <code>{ 18 }</code></li>
+<div class="imgbox"><div style="flex:2"><ul>
+<li> <strong>Applications</strong>:
+  merge <em>sort</em> (<em>k</em>-way merge), sorting <em>big data</em></li>
+<li> e.g., L = <code>{ 3, 4, 5, 6 }</code>:</li>
+<li> schedule: <code>( 3 + 4 ) + ( 5 + 6 )</code></li>
+<li> merge 3+4: <em>cost</em> 7, <em>lists</em> = <code>{ 5, 6, 7 }</code></li>
+<li> merge 5+6: <em>cost</em> 11, <em>lists</em> = <code>{ 7, 11 }</code></li>
+<li> merge 7+11: <em>cost</em> 18, <em>lists</em> = <code>{ 18 }</code></li>
 <li> <strong>Total cost</strong>: 7+11+18 = <em>36</em></li>
-</ul>
-</div><div>
+</ul></div><div>
 ![List merge / Huffman](static/img/HuffmanCodeAlg.png)
 </div></div>
 
@@ -332,7 +333,7 @@ e.g., L = <code>{ 3, 4, 5, 6 }</code>:<ul>
 + How does this affect the **total merge cost**? <br/>
   cost(*T'*) - cost(*T*) =
   \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\`
-  + This is &le; 0, since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
+  + This is *&le; 0*, since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
     and \`d\_(max) >= max(d\_1, d\_2)\`
 + So the greedy *T'* is just as **optimal** as *T*
 
@@ -384,9 +385,9 @@ e.g., L = <code>{ 3, 4, 5, 6 }</code>:<ul>
   + Start with the two **least**-common characters
   + **Merge** them to make a new *subtree* with **combined** freq
 + Use **min-priority queue** to manage the greedy choice
-+ Sounds **familiar**?
 
 <div class="imgbox"><div style="flex:2">
+Sounds <strong>familiar</strong>?
 <pre><code data-trim>
 def huffman( chars ):
   Q = new MinQueue( chars )
