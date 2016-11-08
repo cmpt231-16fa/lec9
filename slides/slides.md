@@ -5,7 +5,23 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
-## Devotional
+## 2 Peter 3:10-12 <span class="ref">(NASB)</span>
+But the **day of the Lord** will come **like a thief**,
+in which [...] the **earth** and its **works** will be burned up.
+
+Since all these things are to be **destroyed** in this way,
+**what sort** of people ought you to be in **holy conduct** and **godliness**,
+**looking** for and **hastening** the coming of the day of God
+
+>>>
++ **Local** optimum vs **global** optimum:
+  + Only **God** sees the big picture of time
+  + We see a **local** patch
++ Bible tells us what is **optimal**:
+  + **holy** conduct (*ἀναστροφαῖς*, turning again)
+  + **godliness** (*εὐσεβείαις*, piety, reverence)
+  + **looking** (welcome, hope+fear)
+  + **hastening** (speed, via proclaiming gospel)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
