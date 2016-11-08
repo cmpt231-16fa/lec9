@@ -277,6 +277,7 @@ def ActivitySelection( s, f ):
   + merge 5+6: *cost* 11, lists = `{ 7, 11 }`
   + merge 7+11: *cost* 18, lists = `{ 18 }`
   + **Total cost**: 7+11+18 = *36*
++ **Applications**: merge *sort* (*k*-way merge), *big data* sorting
 
 >>>
 TODO: svg figure?
