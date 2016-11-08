@@ -272,7 +272,7 @@ def ActivitySelection( s, f ):
 
 <div class="imgbox"><div style="flex:2"><ul>
 <li> <strong>Merging</strong> two lists \`l\_i, l\_j\` <em>costs</em> \`l\_i+l\_j\`
-  <ul><li>and <em>creates</em> a new list of length \`\l\_i+l\_j\`</li></ul></li>
+  <ul><li>and <em>creates</em> a new list of length \`l\_i+l\_j\`</li></ul></li>
 <li> <strong>Applications</strong>:
   merge <em>sort</em> (<em>k</em>-way merge), sorting <em>big data</em></li>
 <li> e.g., <strong>input</strong>: <code>{ 3, 4, 5, 6 }</code><ul>
