@@ -1,11 +1,14 @@
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
 # CMPT231
 ## Lecture 9: ch16
 ### Greedy Algorithms
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
 ## Devotional
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
 ## Outline for today
 + Greedy algorithms
 + Activity selection
@@ -362,3 +365,5 @@ def huffman( chars ):
 ---
 ## Outline
 
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" class="empty" -->
