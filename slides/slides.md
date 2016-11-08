@@ -15,6 +15,7 @@
 + List merging
 + Knapsack problem
   + 0-1 knapsack
++ Optimal caching
 + Huffman coding
 
 ---
@@ -174,6 +175,13 @@
 ## List merge: proof
 + Prove greedy solution optimal by **induction** on number *n* of lists:
 + Let *T* be the tree for **any** optimal solution
+  + Let *u* and *v* be sibling **leaves** of maximal depth, \`d\_(max)\`
+  + without loss of generality, \`l\_u < l\_v\`
++ Consider the two **smallest** leaves, \`l\_1\` and \`l\_2\`, of depth \`d\_1\` and \`d\_2\`
+  + The **greedy** strategy would merge these two first, at maximal depth
++ **Swap** *u* with \`l\_1\`, and *v* with \`l\_1\`; call the modified tree *T'*
++ How do the swaps affect the **total merge cost**?
+  + cost(*T'*) - cost(*T*) = \`(l\_1-l\_u)\`
 
 ---
 ## Outline
