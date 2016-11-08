@@ -186,14 +186,15 @@
   + without loss of generality, \`l\_u < l\_v\`
 + Consider the two **smallest** leaves, \`l\_1\` and \`l\_2\`, of depth \`d\_1\` and \`d\_2\`
   + The **greedy** strategy would merge these two first, at maximal depth
-  + After merging \`l\_1 and l\_2\`, only *n-1* lists remain, so by **inductive hypothesis**, greedy is optimal for the rest of the tree
 + **Swap** *u* with \`l\_1\`, and *v* with \`l\_1\`; call the modified tree *T'*
-+ How do the swaps affect the **total merge cost**?
++ How does this affect the **total merge cost**?
   + cost(*T'*) - cost(*T*) = 
     \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\` <= 0
-  + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
+    + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
     and \`d\_(max) >= max(d\_1, d\_2)\`
-+ So the greedy strategy is just as **optimal** as *T*
++ So the greedy *T'* is just as **optimal** as *T*
++ After merging \`l\_1 and l\_2\`, only *n-1* lists remain
+  + by **inductive hypothesis**, greedy is optimal for the rest of the tree
 
 ---
 ## Outline
