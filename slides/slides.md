@@ -35,8 +35,8 @@ in **holy conduct** and **godliness**, <br/>
   + Greedy *solution*
 + **List merging** problem
   + *Proof* of optimality of greedy
-+ **Knapsack** problem: *fractional* and *0-1*
 + **Huffman** coding
++ **Knapsack** problem: *fractional* and *0-1*
 + Optimal offline **caching**
 
 ---
@@ -76,8 +76,8 @@ in **holy conduct** and **godliness**, <br/>
   + Greedy solution
 + List merging problem
   + Proof of optimality of greedy
-+ Knapsack problem: fractional and 0-1
 + Huffman coding
++ Knapsack problem: fractional and 0-1
 + Optimal offline caching
 
 ---
@@ -154,8 +154,8 @@ in **holy conduct** and **godliness**, <br/>
   + **Greedy solution**
 + List merging problem
   + Proof of optimality of greedy
-+ Knapsack problem: fractional and 0-1
 + Huffman coding
++ Knapsack problem: fractional and 0-1
 + Optimal offline caching
 
 ---
@@ -261,8 +261,8 @@ def ActivitySelection( s, f ):
   + Greedy solution
 + **List merging problem**
   + **Proof of optimality of greedy**
-+ Knapsack problem: fractional and 0-1
 + Huffman coding
++ Knapsack problem: fractional and 0-1
 + Optimal offline caching
 
 ---
@@ -342,8 +342,8 @@ TODO: svg figure?
   + Greedy solution
 + List merging problem
   + Proof of optimality of greedy
-+ Knapsack problem: fractional and 0-1
 + **Huffman coding**
++ Knapsack problem: fractional and 0-1
 + Optimal offline caching
 
 ---
@@ -407,8 +407,8 @@ def huffman( chars ):
   + Greedy solution
 + List merging problem
   + Proof of optimality of greedy
-+ **Knapsack problem: fractional and 0-1**
 + Huffman coding
++ **Knapsack problem: fractional and 0-1**
 + Optimal offline caching
 
 ---
@@ -450,8 +450,8 @@ def FractionalKnapsack( v, w, W ):
   + Greedy solution
 + List merging problem
   + Proof of optimality of greedy
-+ Knapsack problem: fractional and 0-1
 + Huffman coding
++ Knapsack problem: fractional and 0-1
 + **Optimal offline caching**
 
 ---
@@ -511,8 +511,8 @@ This section thanks to Kevin Wayne and the textbook by Kleinberg + Tardos, "Algo
   + Greedy *solution*
 + **List merging** problem
   + *Proof* of optimality of greedy
-+ **Knapsack** problem: *fractional* and *0-1*
 + **Huffman** coding
++ **Knapsack** problem: *fractional* and *0-1*
 + Optimal offline **caching**
 
 ---
