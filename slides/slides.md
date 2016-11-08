@@ -192,6 +192,10 @@
   + Pick an arbitrary **optimal** (not necessarily greedy) solution
   + **Modify** it to fit the greedy strategy, and
   + Demonstrate the modified solution is **no worse** than the original solution
+  + For the **remainder**, greedy is optimal (by the **inductive hypothesis**)
+  + Thus greedy on *n* lists is **no worse** than the modified solution
+  + Which is **no worse** than the original, optimal solution
++ This demonstrates greedy is **optimal**
 
 ---
 ## List merge: proof
@@ -206,8 +210,6 @@
     + since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
     and \`d\_(max) >= max(d\_1, d\_2)\`
 + So the greedy *T'* is just as **optimal** as *T*
-+ After merging \`l\_1 and l\_2\`, only *n-1* lists remain
-  + by **inductive hypothesis**, greedy is optimal for the rest of the tree
 
 ---
 ## Outline
