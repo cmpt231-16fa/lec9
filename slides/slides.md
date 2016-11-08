@@ -342,47 +342,6 @@ TODO: svg figure?
   + Greedy solution
 + List merging problem
   + Proof of optimality of greedy
-+ **Knapsack problem: fractional and 0-1**
-+ Huffman coding
-+ Optimal offline caching
-
----
-## Knapsack problem
-+ **Fractional** knapsack problem:
-  + *n* items, each with **weight** \`w\_i\` and **value** \`v\_i\`
-  + Maximise total **value**, subject to total **weight** limit *W*
-  + Can take **fractions** of an item (think *liquids*)
-+ **Greedy** solution: sort items by *value-to-weight* ratio
-  + Greedy **choice**: take item of largest \`v\_i/w\_i\`
-+ **Final** spot may be filled with a *fractional* item
-
-```
-def FractionalKnapsack( v, w, W ):
-  while totWeight < W:
-    add next item of largest value-to-weight
-  replace last item with 1 - (totWeight - W) of itself
-```
-
----
-## 0-1 knapsack
-+ Knapsack problem, but **no** fractional items allowed
-+ Greedy strategy **no longer** works!
-  + *Locally*-optimal choices made early on <br/>
-    **lock** us out of later *globally*-optimal choices
-+ Still can solve with **dynamic programming** *(#16.2-2)*
-
-![Knapsack problems](static/img/Fig-16-2.svg)
-
----
-<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
-## Outline for today
-+ Greedy algorithms
-+ Activity selection problem
-  + Optimal substructure
-  + Proof of optimality of greedy
-  + Greedy solution
-+ List merging problem
-  + Proof of optimality of greedy
 + Knapsack problem: fractional and 0-1
 + **Huffman coding**
 + Optimal offline caching
@@ -437,6 +396,49 @@ def huffman( chars ):
 | char |  a |  b |  c |  d |  e |  f |
 |------|----|----|----|----|----|----|
 | freq | 15 |  5 |  9 |  7 | 18 | 10 |
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ **Knapsack problem: fractional and 0-1**
++ Huffman coding
++ Optimal offline caching
+
+---
+## Knapsack problem
++ **Fractional** knapsack problem:
+  + *n* items, each with **weight** \`w\_i\` and **value** \`v\_i\`
+  + Maximise total **value**, subject to total **weight** limit *W*
+  + Can take **fractions** of an item (think *liquids*)
++ **Applications**: stock *portfolio* selection, *spacecraft* packing, *cargo* ships, sheet *metal* cutting
++ **Greedy** solution: sort items by *value-to-weight* ratio
+  + Greedy **choice**: take item of largest \`v\_i/w\_i\`
++ **Final** spot may be filled with a *fractional* item
+
+```
+def FractionalKnapsack( v, w, W ):
+  while totWeight < W:
+    add next item of largest value-to-weight
+  replace last item with 1 - (totWeight - W) of itself
+```
+
+---
+## 0-1 knapsack
++ Knapsack problem, but **no** fractional items allowed
++ Greedy strategy **no longer** works!
+  + *Locally*-optimal choices made early on <br/>
+    **lock** us out of later *globally*-optimal choices
++ Still can solve with **dynamic programming** *(#16.2-2)*
++ **Knapsack cryptography** relies on complexity of solving
+
+![Knapsack problems](static/img/Fig-16-2.svg)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
