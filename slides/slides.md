@@ -56,7 +56,7 @@ in **holy conduct** and **godliness**, <br/>
 
 ---
 ## Problem-solving outline
-+ Describe optimial **substructure** (e.g., via *recurrence*)
++ Describe optimal **substructure** (e.g., via *recurrence*)
 + Convert to naive **recursive** solution
   + Could then convert to *dynamic programming*
 + Use **greedy choice** to simplify recurrence
