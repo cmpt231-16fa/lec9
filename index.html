@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lecture 9, CMPT231</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+    <link rel=icon href="static/img/favicon.svg" sizes="any" type="image/svg+xml" />
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.min.css" integrity="sha256-OxiHrn+gXudPDHxTvXiQzeFjZU/FllSSPmOOYAZ1O/g=" crossorigin="anonymous" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css" integrity="sha256-GA29iW/iYj9FcuQQktvW45pRzHvZeFfgeFvA4tGVjpM=" crossorigin="anonymous" />
+    
+
+    <link rel="stylesheet" href="static/css/boldblack.css" id="theme" />
+    <link rel="stylesheet" href="static/css/slides.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+
+      <noscript><div class="noscript">
+        <h1>Lecture 9, CMPT231</h1>
+        <p>(Please see PDF link below)</p>
+      </div></noscript>
+
+      <div class="slides">
+        
+        <section data-markdown data-charset="utf8"
+          data-separator="^---[-\s]*$"
+          data-separator-vertical="^\*\*\*[\*\s]*$"
+          data-separator-notes="^>>>[>\s]*$">
+          <textarea data-template>
+        <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+# CMPT231
+## Lecture 9: ch16
+### Greedy Algorithms
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## 2 Peter 3:10-12 <span class="ref">(NASB)</span>
+But the **day of the Lord** will come **like a thief**, in which <br/>
+[...] the **earth** and its **works** will be burned up.
+
+Since all these things are to be **destroyed** in this way, <br/>
+**what sort** of people ought you to be
+
+in **holy conduct** and **godliness**, <br/>
+**looking** for and **hastening** the coming of the day of God
+
+>>>
++ **Local** optimum vs **global** optimum:
+  + Only **God** sees the big picture of time
+  + We see a **local** patch
++ Bible tells us what is **optimal**:
+  + **holy** conduct (*ἀναστροφαῖς*, turning again)
+  + **godliness** (*εὐσεβείαις*, piety, reverence)
+  + **looking** (welcome, hope+fear)
+  + **hastening** (speed, via proclaiming gospel)
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ **Greedy** algorithms
++ **Activity selection** problem
+  + Optimal *substructure*
+  + *Proof* of optimality of greedy
+  + Greedy *solution*
++ **List merging** problem
+  + *Proof* of optimality of greedy
++ **Huffman** coding
++ **Knapsack** problem: *fractional* and *0-1*
++ Optimal offline **caching**
+
+---
+## Greedy algorithms
++ A special case of **dynamic programming**
+  + At each *decision* point, choose **immediate** gains
++ Relies on **greedy choice** property:
+  + *Locally* optimal choices &rArr; *global* optimum
++ **Not** all problems have greedy choice property!
+
+<div class="imgbox"><div><ul>
+<li> <strong>Hybrid</strong> strategies use large <em>jumps</em> to get to right "hill"</li>
+<li> Then use greedy <strong>hill-climbing</strong> to get to the top </li>
+</ul></div><div>
+![Saddle point between maxima, [Wikimedia](https://commons.wikimedia.org/wiki/File%3ASaddle_Point_between_maxima.svg)](static/img/Saddle_Point_between_maxima.svg)
+</div></div>
+
+---
+## Problem-solving outline
++ Describe optimal **substructure** (e.g., via *recurrence*)
++ Convert to naive **recursive** solution
+  + Could then convert to *dynamic programming*
++ Use **greedy choice** to simplify recurrence
+  + So only *one* subproblem remains
+  + Don't have to *iterate* through all subproblems
+  + Need to **prove** greedy choice yields *global* optimum
++ Convert to **recursive** greedy solution
++ Convert to **iterative** (bottom-up) greedy solution
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ **Activity selection problem**
+  + **Optimal substructure**
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ Huffman coding
++ Knapsack problem: fractional and 0-1
++ Optimal offline caching
+
+---
+## Example: activity selection
++ **Activities** \`S = {a\_i}\_1^n\`: <br/>
+  each require *exclusive* use of some shared resource
+  + e.g., database *table*, communication *bus*, conference *room*
++ Each activity has **start**/finish times \`[s\_i, f\_i)\` <!-- ] -->
+  + Input is **sorted** by finish time
++ Task: **maximise** num activities that can be completed
+  + i.e., find **largest** subset of S with **non-overlapping** activities
+
+|  i |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
+|----|----|----|----|----|----|----|----|----|----|
+|  s |  1 |  2 |  4 |  1 |  5 |  8 |  9 | 11 | 13 |
+|  f |  3 |  5 |  7 |  8 |  9 | 10 | 11 | 14 | 16 |
+
+---
+## ActSel: example
+|  i |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
+|----|----|----|----|----|----|----|----|----|----|
+|  s |  1 |  2 |  4 |  1 |  5 |  8 |  9 | 11 | 13 |
+|  f |  3 |  5 |  7 |  8 |  9 | 10 | 11 | 14 | 16 |
+
+![Activity selection](static/img/activity_selection.png)
+
+---
+## ActSel: task substructure
++ Let \`S\_(ij) = {a\_k in S: f\_i <= s\_k < f\_k <= s\_j}\`
+  + all activities that **start** after \`f\_i\` and **finish** before \`s\_j\`
++ Any activity in \`S\_(ij)\` will be **compatible** with:
+  + Any activity that **finishes** no later than \`f\_i\`
+  + Any activity that **starts** no earlier than \`s\_j\`
++ Let \`A\_(ij)\` be a **solution** for \`S\_(ij)\`:
+  + i.e., largest *mutually-compatible* subset of \`S\_(ij)\`
++ Choose an activity \`a\_k in A\_(ij)\` and **partition** \`A\_(ij)\` into
+  + \`A\_(ik) = A\_(ij) nn S\_(ik)\`: those that finish **before** \`a\_k\` starts
+  + \`A\_(kj) = A\_(ij) nn S\_(kj)\`: those that start **after** \`a\_k\` finishes
+
+---
+## ActSel: prove opt substr
++ **Claim**: \`A\_(ik) and A\_(jk)\` are **optimal** solutions for \`S\_(ik), S\_(kj)\`
++ **Proof** (for \`A\_(ik)\`): assume **not**:
+  + Let \`B\_(ik)\` be a **better** solution:
+  + So \`B\_(ik)\` has non-overlapping elts, and \`|B\_(ik)| > |A\_(ik)|\`
+  + Then \`B\_(ik) uu {a\_k} uu A\_(kj)\` would be a **solution** for \`S\_(ij)\`
+  + Its size is **larger** than \`A\_(ij) = A\_(ik) uu {a\_k} uu A\_(kj)\`
+  + This **contradicts** the assumption that \`A\_(ij)\` was **optimal**
++ Hence our optimal **substructure** is:
+  + **Split** on \`a\_k\`,
+  + **Recurse** twice on the two subproblems \`S\_(ik)\` and \`S\_(kj)\`
+  + **Iterate** over all such choices of \`a\_k\` and choose the **best** split
+
+---
+## ActSel: naive recursive
++ Let *c(i, j)* be the **size** of an optimal solution for \`S\_(ij)\`:
+  + **Splitting** on \`a\_k\` yields *c(i, j)* = *c(i, k)* + 1 + *c(k, j)*
+  + Which **choice** of \`a\_k\` is the best?  Try **all** of them
++ **Recurrence**:
+  \` c(i,j) = { (0, if S\_(ij) = O/),
+  (max\_(a\_k in S\_(ij)) (c(i,k) + 1 + c(k,j)), if S\_(ij) != O/) :} \`
++ **Dynamic programming** implementation:
+  + Fill in 2D **table** for *c(i, j)*, bottom-up
+  + Auxiliary table to store **solutions** \`A\_(ij)\`
++ But for this problem, we can do even **better**!
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + **Proof of optimality of greedy**
+  + **Greedy solution**
++ List merging problem
+  + Proof of optimality of greedy
++ Huffman coding
++ Knapsack problem: fractional and 0-1
++ Optimal offline caching
+
+---
+## ActSel: greedy choice
++ Which **choice** of \`a\_k\` leaves as **much** as possible of the
+  shared resource available for the other activities?
+  + The one which **finishes** the earliest
+  + Since input is **sorted** by finish time, just take the **first** activity
++ Let \`S\_i = {a\_k in S: f\_i <= s\_k}\`: those that **start** after \`a\_i\` finishes
++ **Simplified** recurrence: to find optimal subset of \`S\_i\`,
+  + Choose the **first** activity in \`S\_i\`: call it \`a\_j\`
+  + Recurse on the **remainder**: \`S\_j\`
+  + Don't need to **iterate** over all choices of \`a\_k in S\_i\`
++ We need to **prove** this greedy choice is **optimal**
+
+---
+## ActSel: prove greedy
++ **Cut-and-paste** style proof:
++ Let \`A\_i\` be any **optimal solution** for \`S\_i\`
++ **Modify** \`A\_i\` to fit *greedy* strategy
+  + Let \`a\_j\` have **earliest** finish time in \`S\_i\`
+    + This would be the *greedy* choice
+  + Let \`a\_k\` have **earliest** finish time in \`A\_i\`
+    + This is the choice in the given **optimal** solution
+  + **Swap** them: let \`B\_i = A\_i - {a\_k} uu {a\_j}\`
++ Show the modified solution \`B\_i\` is just as **optimal**:
+  + **Size** \`|B\_i|\` is same as \`|A\_i|\`
+  + Activities are **non-overlapping**: \`f\_j <= f\_k\`
+
+---
+## ActSel: recursive greedy
++ **Input**: arrays `s[], f[]`, sorted by `f[]`
+  + Add a **dummy** entry `f[0]=0` so that \`S\_0 = S\`
++ For each **subproblem** \`S\_i\`:
+  + **Skip** over any activities that overlap with \`a\_i\`
+  + Choose the **first** activity \`a\_j\` that *doesn't* overlap
+  + **Recurse** on the remainder
++ **Complexity**?
+
+```
+def ActivitySelection( s, f, i ):
+  for j in i+1 .. length( f ):
+    if ( s[ j ] >= f[ i ] ):                        # compatible w/ a_j?
+      return [ j ] + ActivitySelection( s, f, j )   # concatenate lists
+  return NULL
+
+ActivitySelection( s, f, 0 )
+```
+
+---
+## ActSel: iterative greedy
++ Easy to convert **tail-recursion** to **iteration**
++ **Complexity**: &Theta;(*n*)
+  + or &Theta;(*n lg n*) if need to **pre-sort** `f[]`
+
+```
+def ActivitySelection( s, f ):
+  A = [ 1 ]
+  i = 1
+  for j in 2 .. length( f ):
+    if ( s[ j ] >= f[ i ] ):    # compatible w/ a_j ?
+      A = A + [ j ]             # append to list
+      i = j
+  return A
+```
+
+|  i |    1   |    2   |    3   |    4   |    5   |    6   |    7   |    8   |    9   |
+|----|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|  s |    1   |    2   |   *4*  |    1   |    5   |   *8*  |    9   |  *11*  |   13   |
+|  f |  **3** |    5   |  **7** |    8   |    9   | **10** |   11   | **14** |   16   |
+
+---
+## Greedy vs dynamic programming
++ *Greedy*-solvable problems are a **subset** <br/>
+  of *dynamic programming*-solvable problems
+  + **Not** all problems have *greedy property*
++ Dynamic programming fills in *table* **bottom-up**
+  + Greedy *choice* is done **top-down**
++ Dyn prog **choice** requires solutions to **all** subproblems
+  + Greedy choice can be made **before** doing the (*single*) subproblem
++ To **prove** greedy property:
+  + *Assume* an optimal solution
+  + *Modify* it to include the greedy choice
+  + *Show* that the modified solution is still optimal
+
+---
+## Optimising for greedy choice
++ Often, *greedy choice* is easier if input is **pre-processed**
++ E.g., **sorting** activities by *finish* time
+  + Then the greedy **choice** can be made in *O(1)* each time
+  + The **pre-sorting** takes *O(n lg n)*
++ If input is **dynamically** generated:
+  + Can't **sort** whole list in advance, but we can
+  + Use **priority queue** to pop the current most optimal choice
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ **List merging problem**
+  + **Proof of optimality of greedy**
++ Huffman coding
++ Knapsack problem: fractional and 0-1
++ Optimal offline caching
+
+---
+## List merging
++ Given: **lists** of various lengths, \`l\_1 < l\_2 < ... < l\_n\`
+  + Want: **sequence** of lists to merge, minimising total *merge cost*
+
+<div class="imgbox"><div style="flex:2"><ul>
+<li> <strong>Merging</strong> two lists \`l\_i, l\_j\` <em>costs</em> \`l\_i+l\_j\`
+  <ul><li>and <em>creates</em> a new list of length \`l\_i+l\_j\`</li></ul></li>
+<li> <strong>Applications</strong>: merge <em>sort</em> <br/>
+  (<em>k</em>-way merge), sorting <em>big data</em></li>
+<li> e.g., <strong>input</strong>: <code>{ 3, 4, 5, 6 }</code><ul>
+  <li> <strong>schedule</strong>: ( 3 + 4 ) + ( 5 + 6 )</li>
+  <li> merge 3+4: <em>cost</em> 7, <em>lists</em> = { 5, 6, 7 }</li>
+  <li> merge 5+6: <em>cost</em> 11, <em>lists</em> = { 7, 11 }</li>
+  <li> merge 7+11: <em>cost</em> 18, <em>lists</em> = { 18 }</li>
+  <li> <strong>Total cost</strong>: 7+11+18 = <em>36</em></li>
+</ul></li>
+</ul></div><div>
+![List merge / Huffman](static/img/HuffmanCodeAlg.png)
+</div></div>
+
+---
+## List merge: greedy strategy
++ Always select the two **shortest** lists to merge
+  + Merging creates a **new** list, that is also **pushed** with other lists
+  + **Iterate** on the new set of lists
++ &rArr; what **data structure** to use?
+  + Hold a **set** of keys
+  + Quickly return the **smallest** key
++ &rArr; **Complexity** of finding optimal schedule for *n* lists?
+
+---
+## List merge: notation
++ Represent a merge **schedule** using a binary **tree**:
+  + Input lists are at **leaves**
+    + Keys are **lengths** of lists
+  + Keys for **internal** nodes are **sum** of children's keys
++ Total merge **cost** is sum of all interior nodes:
+  + \`= sum\_(i=1)^n d\_i l\_i\`, where \`d\_i\` is **depth** of leaf *i* in tree
++ Note: any leaf of **maximal** depth must have a **sibling**
+  + Sibling must also be a **leaf**
+  + Otherwise would not be **maximal** depth
+
+---
+## List merge: proof outline
++ **Prove** that greedy strategy gives an optimal solution:
+  + Use **induction** on number *n* of lists
++ For inductive step, use a **cut-and-paste** style proof:
+  + Pick an arbitrary **optimal** (not necessarily greedy) solution
+  + **Modify** it to fit the greedy strategy, and
+  + Show the modified solution is **no worse** than original solution
+  + Apply **inductive hypothesis** on set of *n-1* lists
+  + Thus greedy on *n* lists is **no worse** than the modified solution
+  + Which is **no worse** than the original, optimal solution
++ This will demonstrate that greedy is **optimal**
+
+---
+## List merge: proof
++ Let *T* be the tree for **any** optimal solution
+  + Let *u* and *v* be sibling **lists** of maximal depth, \`d\_(max)\` (wlog, *u* &le; *v*)
++ Consider two **smallest** lists, \`l\_1, l\_2\`, of depth \`d\_1, d\_2\`
+  + **Greedy** strategy would put these two at *maximal depth*
++ **Swap** *u* &harr; \`l\_1\`, and *v* &harr; \`l\_1\`: call the modified tree *T'*
+  + *First* merge in *T'* is same as **greedy**
+  + *Remaining* merges in *T'* no better than greedy, by **inductive hyp**
++ How does this affect the **total merge cost**? <br/>
+  cost(*T'*) - cost(*T*) =
+  \`(l\_1-l\_u)(d\_(max)-d\_1) + (l\_2-l\_v)(d\_(max)-d\_2)\`
+  + This is *&le; 0*, since \`l\_1 <= l\_u\` and \`l\_2 <= l\_v\`,
+    and \`d\_(max) >= max(d\_1, d\_2)\`
++ So the greedy *T'* is just as **optimal** as *T*
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ **Huffman coding**
++ Knapsack problem: fractional and 0-1
++ Optimal offline caching
+
+---
+## Encoding
++ Given a **text** with known *character set*
+  + **Encode** each character with a unique *codeword* in binary
++ **Fixed-length** code: all codewords *same* length
+  + "`cafe`" &rArr; *010 000 101 100*
++ **Variable-length** code: some codes use *fewer* bits
+  + "`cafe`" &rArr; *100 0 1100 1101*
+  + **Compression**: more *frequent* chars get *shorter* codes
++ **Prefix** code: no code is a *prefix* of another
+  + Makes **parsing** unique: don't need *delimiters*
+  + "`cafe`" &rArr; *100011001101*
+
+![Character encodings](static/img/Fig-16-3.svg)
+
+---
+## Binary code trees
++ **Prefixes** are *nodes*, **characters** are at *leaves*
+  + Requires encoding to be a *prefix* code
++ **Decoding** strings = a series of *walks* down the tree
+  + **Cost** of a character *c* = its *depth* \`d\_c\` in the tree
+  + **Fixed-length** code &rArr; all *leaves* at **same level**
++ **Total cost** of encoding a *text* using a given *tree*:
+  \` sum ( f\_c d\_c )\`
+  + where \`f\_c\` is the **frequency** of character *c* in the text
+
+![Code tree](static/img/Fig-16-4.svg)
+
+---
+## Huffman coding
++ Build tree **bottom-up**:
+  + Start with the two **least**-common characters
+  + **Merge** them to make a new *subtree* with **combined** freq
+
+<div class="imgbox"><div style="flex:2">
+<ul>
+<li>Sounds <strong>familiar</strong>?</li>
+<li>Use <strong>min-priority queue</strong> to manage the greedy choice</li>
+</ul>
+<pre><code data-trim>
+def huffman( chars ):
+  Q = new MinQueue( chars )
+  for i in 1 .. length( chars ) - 1:
+    z = new Node()
+    z.left = Q.popmin()
+    z.right = Q.popmin()
+    z.freq = z.left.freq + z.right.freq
+    Q.push( z )
+  return Q.popmin()
+</code></pre>
+</div><div>
+![List merge / Huffman](static/img/HuffmanCodeAlg.png)
+</div></div>
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ Huffman coding
++ **Knapsack problem: fractional and 0-1**
++ Optimal offline caching
+
+---
+## Knapsack problem
++ **Fractional** knapsack problem:
+  + *n* items, each with **weight** \`w\_i\` and **value** \`v\_i\`
+  + Maximise total **value**, subject to total **weight** limit *W*
+  + Can take **fractions** of an item (think *liquids*)
++ **Applications**: stock *portfolio* selection, *spacecraft* packing, *cargo* ships, sheet *metal* cutting
++ **Greedy** solution: sort items by *value-to-weight* ratio
+  + Greedy **choice**: take item of largest \`v\_i/w\_i\`
++ **Final** spot may be filled with a *fractional* item
+
+```
+def FractionalKnapsack( v, w, W ):
+  while totWeight < W:
+    add next item of largest value-to-weight
+  replace last item with 1 - (totWeight - W) of itself
+```
+
+---
+## 0-1 knapsack
++ Knapsack problem, but **no** fractional items allowed
++ Greedy strategy **no longer** works!
+  + *Locally*-optimal choices made early on <br/>
+    **lock** us out of later *globally*-optimal choices
++ Still can solve with **dynamic programming** *(#16.2-2)*
++ **Knapsack cryptography** relies on complexity of solving
+
+![Knapsack problems](static/img/Fig-16-2.svg)
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ Greedy algorithms
++ Activity selection problem
+  + Optimal substructure
+  + Proof of optimality of greedy
+  + Greedy solution
++ List merging problem
+  + Proof of optimality of greedy
++ Huffman coding
++ Knapsack problem: fractional and 0-1
++ **Optimal offline caching**
+
+---
+## Caching
++ Cache has **capacity** to store *k* items
+  + Input is a sequence of *m* **item requests** \`{d\_i}\_1^m\`
++ Cache **hit** if item already in cache when requested
+  + If cache **miss**, need to **evict** an item from cache
+  + Then bring **requested** item into cache
++ **Task**: eviction schedule to **minimise** evictions
++ E.g., k=*2*, intial cache = *ab*, requests: *a b c b c a b*
+  + **Optimal** schedule has only 2 evictions:
+
+| request |   a   |   b   |   c   |   b   |   c   |   a   |   b   |
+|---------|-------|-------|-------|-------|-------|-------|-------|
+|  cache1 |   a   |   a   | **c** |   c   |   c   | **a** |   a   |
+|  cache2 |   b   |   b   |   b   |   b   |   b   |   b   |   b   |
+
+<div class="caption">
+This section thanks to Kevin Wayne and the textbook by Kleinberg + Tardos, "Algorithm Design"
+</div>
+
+---
+## Greedy offline caching
++ Assume entire request sequence is *known* in advance
++ **LIFO** / **FIFO**: evict *most* (*least*) recently added item
++ **LRU**: evict item whose most *recent* access is the earliest
++ **LFU**: evict item least *frequently* accessed
+
+| request |   a   |   d   |   a   |   b   |   c   |   e   |  *g*  |
+|---------|-------|-------|-------|-------|-------|-------|-------|
+|  cache1 | **a** |   a   |   a   |   a   |   a   |   a   |  *?*  |
+|  cache2 |   w   |   w   |   w   | **b** |   b   |   b   |  *?*  |
+|  cache3 |   x   |   x   |   x   |   x   | **c** |   c   |  *?*  |
+|  cache4 |   y   | **d** |   d   |   d   |   d   |   d   |  *?*  |
+|  cache5 |   z   |   z   |   z   |   z   |   z   | **e** |  *?*  |
+
+---
+## Farthest-in-future
++ Since this is **offline**, we can **peek** into the future
++ **Farthest-in-future** algorithm ("clairvoyant"):
+  + Evict item whose *next* request is the **farthest** in the future
++ **Provably** optimal offline caching strategy <span class="ref">(Bélády 1966)</span>
+  + Proof is also a *cut-and-paste* greedy proof
++ Useful perspective to guide us for **online** algorithms
+  + **LRU** is farthest-in-future with time run *backwards*!
+  + **LIFO** can be arbitrarily *bad*
++ Caching is one of comp sci's **hardest** real-world problems
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" -->
+## Outline for today
++ **Greedy** algorithms
++ **Activity selection** problem
+  + Optimal *substructure*
+  + *Proof* of optimality of greedy
+  + Greedy *solution*
++ **List merging** problem
+  + *Proof* of optimality of greedy
++ **Huffman** coding
++ **Knapsack** problem: *fractional* and *0-1*
++ Optimal offline **caching**
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-8MbdD0pHXGY-italy_mtn.jpg" class="empty" -->
+
+          </textarea>
+        </section>
+        
+      </div>
+
+      <div id="footer">cmpt231.seanho.com/lec9
+        <span class="links">
+          <a href="https://github.com/cmpt231-16fa/lec9">
+            <i class="fa fa-github fa-inverse"></i></a>
+          <a href="static/lec9.pdf">
+            <i class="fa fa-file-pdf-o fa-inverse"></i></a>
+        </span>
+        <span class="commit">61bd81b</span>
+      </div>
+
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js" integrity="sha256-pv4AarTAzSO6lz+bbMPwmV29XMjkzmFOn601b2pWqXE=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js" integrity="sha256-fIsvyYkI1qQV1tu1PdlM4FF43kW76YCnCcl/xJCD3Fc=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/markdown/markdown.min.js" integrity="sha256-p6zZf7+dsrD1lcLQCXRgmXAAMyr9pWWCP4a9KfB0klE=" crossorigin="anonymous"></script>
+    
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        SVG: { scale: 77 }
+      });
+    </script>
+
+    <script>
+      Reveal.initialize({
+        display: 'flex',
+        maxScale: 4.0,
+        slideNumber: 'c/t',
+        controlsTutorial: false,
+        viewDistance: 40,
+
+        markdown: {
+          smartypants: true
+        },
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js',
+          config: 'AM_SVG'
+        },
+
+        multiplex: {
+          url: 'https://mp.seanho.com/',
+          id : '2c51f9a374cacb7a',
+          secret: Reveal.getQueryHash().s || null
+        },
+
+        dependencies: [
+          { src: Reveal.getQueryHash().s ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/multiplex/master.min.js' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/multiplex/client.min.js', async:true }
+        ]
+      });
+    </script>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/math/math.min.js" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/highlight/highlight.min.js" crossorigin="anonymous"></script>
+    
+    <script src="static/js/notes.js"></script>
+
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+
+  </body>
+</html>
